@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "frontend": "npm --prefix frontend start",
-    "backend": "npm --prefix backend start",
-    "start": "concurrently \"npm run backend\" \"npm run frontend\""
+    "start": "concurrently \"npm run backend:start\" \"npm run frontend:serve\"",
+    "build": "npm run frontend:build && npm run backend:build",
+    "frontend:build": "npm --prefix frontend run build",
+    "backend:build": "npm --prefix backend run build",
+    "frontend:serve": "npm --prefix frontend run preview",
+    "backend:start": "node backend/dist/index.js"
   },
   "dependencies": {
     "concurrently": "^7.6.0",
