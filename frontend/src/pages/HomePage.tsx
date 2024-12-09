@@ -1,5 +1,5 @@
-import landingImage from "../assets/landing.png";
-import appDownloadImage from "../assets/appDownload.png";
+// import landingImage from "../assets/landing.png";
+// import appDownloadImage from "../assets/appDownload.png";
 import SearchBar, { SearchForm } from "@/components/SearchBar";
 import { useNavigate } from "react-router-dom";
 
@@ -25,16 +25,17 @@ const   HomePage = () => {
         />
       </div>
       <div className="grid md:grid-cols-2 gap-5">
-        <img src={landingImage} />
+        <img src="https://res.cloudinary.com/darshilpatel/image/upload/v1733764382/landing_pglkmp.png" />
         <div className="flex flex-col items-center justify-center gap-4 text-center">
           <span className="font-bold text-3xl tracking-tighter">
             Order takeaway even faster!
           </span>
+          {/* https://res.cloudinary.com/darshilpatel/image/upload/v1733764382/hero_n9rh7k.png */}
           <span>
             Download the MernEats App for faster ordering and personalised
             recommendations
           </span>
-          <img src={appDownloadImage} />
+          <img src="https://res.cloudinary.com/darshilpatel/image/upload/v1733764377/appDownload_ibyyiq.png" />
         </div>
       </div>
     </div>
