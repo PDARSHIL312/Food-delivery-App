@@ -16,7 +16,7 @@ const getMyOrders = async (req: Request, res: Response) => {
     res.json(orders);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "something went wrong" });
+    res.status(500).json({ message: "Something went wrong" });
   }
 };
 
@@ -36,7 +36,7 @@ type CheckoutSessionRequest = {
 };
 
 const stripeWebhookHandler = async (req: Request, res: Response) => {
-  let event;
+  let event: Stripe.Event;
 
   try {
     const sig = req.headers["stripe-signature"];
@@ -45,9 +45,12 @@ const stripeWebhookHandler = async (req: Request, res: Response) => {
       sig as string,
       STRIPE_ENDPOINT_SECRET
     );
-  } catch (error: any) {
+  } catch (error) {
+    // Specify Stripe error type
     console.log(error);
-    return res.status(400).send(`Webhook error: ${error.message}`);
+    return res
+      .status(400)
+      .send(`Webhook error:"In OrderController.js problem at any declaration`);
   }
 
   if (event.type === "checkout.session.completed") {
@@ -105,16 +108,20 @@ const createCheckoutSession = async (req: Request, res: Response) => {
 
     await newOrder.save();
     res.json({ url: session.url });
-  } catch (error: any) {
+  } catch (error) {
+    // More specific error type
     console.log(error);
-    res.status(500).json({ message: error.raw.message });
+    res
+      .status(500)
+      .json({ message: "In OrderController.js problem at any declaration" });
   }
 };
 
 const createLineItems = (
   checkoutSessionRequest: CheckoutSessionRequest,
   menuItems: MenuItemType[]
-) => {
+): Stripe.Checkout.SessionCreateParams.LineItem[] => {
+  // Type explicitly as Stripe.LineItem[]
   const lineItems = checkoutSessionRequest.cartItems.map((cartItem) => {
     const menuItem = menuItems.find(
       (item) => item._id.toString() === cartItem.menuItemId.toString()
@@ -146,7 +153,8 @@ const createSession = async (
   orderId: string,
   deliveryPrice: number,
   restaurantId: string
-) => {
+): Promise<Stripe.Checkout.Session> => {
+  // Specify return type
   const sessionData = await STRIPE.checkout.sessions.create({
     line_items: lineItems,
     shipping_options: [

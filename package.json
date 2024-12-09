@@ -1,5 +1,15 @@
 {
+  "name": "mern-food-delivery",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "frontend": "npm --prefix frontend start",
+    "backend": "npm --prefix backend start",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
   "dependencies": {
-    "react-router-dom": "^6.23.1"
+    "concurrently": "^7.6.0",
+    "dotenv": "^16.4.7",
+    "gitignore": "^0.7.0"
   }
 }
